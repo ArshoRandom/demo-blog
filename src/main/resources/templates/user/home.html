@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blocks/head :: head"></head>
+<body>
+<div class="site-wrap">
+    <div class="site-mobile-menu">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div>
+    <div th:insert="/blocks/header :: header-logout"></div>
+    <main class="user-main-content">
+        <section class="user-wr">
+            <div class="container">
+                <div class="user__info bg-secondary text-white rounded-top">
+                    <div class="user__img border border-success rounded-circle">
+                        <img class="w-100" th:src="${'data:image/png;base64,' + currentUser.image}"/>
+                    </div>
+                    <p class="user__name" th:text="${currentUser.name + ' ' + currentUser.surname}"></p>
+                    <a class="btn btn-success text-white" th:href="@{/user/blog/add}">Add Blog</a>
+                    <p class="text-right mt-2 mb-0" th:text="${currentUser.email}"></p>
+                </div>
+            </div>
+        </section>
+        <section th:if="${not #lists.isEmpty(userPosts)}" class="site-section py-lg">
+            <div class="container">
+                <div class="row blog-entries element-animate">
+                    <div class="col-md-12 col-lg-8 main-content">
+                        <div class="sidebar-box">
+                            <h3 class="heading">My Posts</h3>
+                            <div class="post-entry-sidebar">
+                                <div class="row post__meta align-items-center mb-4" th:each="el : ${userPosts}">
+                                    <div class="col-12 col-sm-9">
+                                        <div class="d-flex align-items-center text-center text-sm-left flex-column flex-sm-row">
+                                            <a class="d-block mr-sm-4" th:href="${'/blog/' + el.id}"><img
+                                                    alt="Image placeholder" class="post__thumb" th:src="${'data:image/png;base64,' + el.image}"></a>
+                                            <div class="text my-3 my-sm-0">
+                                                <h3 class="post__title" th:text="${el.title}"><a
+                                                        th:href="${'/blog/' + el.id}">Title</a></h3>
+                                                <p class="post__date" th:text="${el.createdAt}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="d-flex justify-content-center justify-content-sm-between">
+                                            <form method="post" th:action="${'/user/blog/' + el.id + '/delete'}">
+                                                <button class="btn btn-warning mr-3" type="submit">Delete</button>
+                                            </form>
+                                            <a th:href="${'/user/blog/' + el.id + '/edit'}" class="btn btn-warning">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div th:insert="/blocks/footer :: footer"></div>
+</div>
+<script th:src="@{js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{js/jquery-ui.js}"></script>
+<script th:src="@{js/popper.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/owl.carousel.min.js}"></script>
+<script th:src="@{js/jquery.stellar.min.js}"></script>
+<script th:src="@{js/jquery.countdown.min.js}"></script>
+<script th:src="@{js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{js/bootstrap-datepicker.min.js}"></script>
+<script th:src="@{js/aos.js}"></script>
+<script th:src="@{js/main.js}"></script>
+</body>
+</html>

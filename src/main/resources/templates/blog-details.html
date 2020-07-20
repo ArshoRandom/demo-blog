@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blocks/head :: head"></head>
+<body>
+<div th:if="${isAuth}">
+    <header th:insert="blocks/header :: header-logout"></header>
+</div>
+<div th:unless="${isAuth}">
+    <header th:insert="blocks/header :: header-login"></header>
+</div>
+
+<div class="site-cover site-cover-sm same-height overlay single-page"
+     th:style="'background-image: url(' + ${imageData} + ');'">
+    <div class="container">
+        <div class="row same-height justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="post-entry text-center">
+                    <h1 th:text="${post.title}" class="mb-4"></h1>
+                    <div class="post-meta align-items-center text-center">
+                        <figure class="author-figure mb-0 mr-3 d-inline-block"><img
+                                th:src="${'data:image/png;base64,' + creator.image}" alt="Image" class="img-fluid">
+                        </figure>
+                        <span class="d-inline-block mt-1">By <span
+                                th:text="${creator.getName() + ' ' + creator.getSurname()}"></span></span>
+                        <span th:text=" ' - ' + ${post.createdAt}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="site-section py-lg">
+    <div class="container">
+        <div class="row blog-entries element-animate">
+            <div class="col-md-12 col-lg-8 main-content">
+                <div class="post-content-body">
+                    <p class="font-weight-bold mb-3" th:text="${post.anons}"></p>
+                    <p th:text="${post.fullText}"></p>
+                </div>
+                <section th:if="${not #lists.isEmpty(posts)}" class="site-section py-lg">
+                    <div class="container">
+                        <div class="row blog-entries element-animate">
+                            <div class="col-md-12 col-lg-8 main-content">
+                                <div class="sidebar-box">
+                                    <h3 class="heading">Other posts</h3>
+                                    <div class="post-entry-sidebar">
+                                        <div class="row post__meta align-items-center mb-4" th:each="el : ${posts}">
+                                            <div class="col-12 col-sm-9">
+                                                <div class="d-flex align-items-center text-center text-sm-left flex-column flex-sm-row">
+                                                    <a class="d-block mr-sm-4" th:href="${'/blog/' + el.id}"><img
+                                                            alt="Image placeholder" class="post__thumb"
+                                                            th:src="${'data:image/png;base64,' + el.image}"></a>
+                                                    <div class="text my-3 my-sm-0">
+                                                        <h3 class="post__title" th:text="${el.title}"><a
+                                                                th:href="${'/blog/' + el.id}">Title</a></h3>
+                                                        <p class="post__date" th:text="${el.createdAt}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>

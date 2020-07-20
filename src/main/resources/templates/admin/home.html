@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blocks/head :: head"></head>
+<body>
+<header th:insert="blocks/header :: header-logout"></header>
+<div class="container mt-5">
+    <h2 th:text="${userName}"></h2>
+</div>
+
+<section th:if="${not #lists.isEmpty(users)}" class="site-section py-lg">
+    <div class="container">
+        <div class="row blog-entries element-animate">
+            <div class="col-md-12 col-lg-8 main-content">
+                <div class="sidebar-box">
+                    <h3 class="heading">All users</h3>
+                    <div class="post-entry-sidebar">
+                        <div class="row post__meta align-items-center mb-4" th:each="el : ${users}">
+                            <div class="col-12 col-sm-9">
+                                <div class="d-flex align-items-center text-center text-sm-left flex-column flex-sm-row">
+
+                                    <img alt="Image placeholder"
+                                         class="post__thumb border border-success rounded-circle"
+                                         th:src="${'data:image/png;base64,' + el.image}"></a>
+
+                                    <div class="text my-3 my-sm-0 ml-3">
+                                        <h3 th:text="${el.name + ' ' + el.surname}"></h3></div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <div class="d-flex justify-content-center justify-content-sm-between">
+                                    <form method="post" th:action="${'/admin/user/' + el.id + '/delete'}">
+                                        <button class="btn btn-warning mr-3" type="submit">Delete</button>
+                                    </form>
+                                    <a th:href="${'/admin/user/' + el.id}" class="btn btn-warning">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>

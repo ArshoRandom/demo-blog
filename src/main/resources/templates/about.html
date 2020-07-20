@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blocks/head :: head"></head>
+<body>
+<div th:if="${isAuth}">
+    <header th:insert="blocks/header :: header-logout"></header>
+</div>
+<div th:unless="${isAuth}">
+    <header th:insert="blocks/header :: header-login"></header>
+</div>
+<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/img_4.png');">
+    <div class="container">
+        <div class="row same-height justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="post-entry text-center">
+                    <h1 class="">About Us</h1>
+                    <p class="lead mb-4 text-white">On this website you can get acquainted with the news of the literary world</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="site-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 order-md-2">
+                <img th:src="@{images/img_3.png}" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-md-5 mr-auto order-md-1">
+                <h2>We Love To Explore</h2>
+                <p>On this website you can find news about poetry world, </p>
+                <ul class="ul-check list-unstyled success">
+                    <li>Onsectetur adipisicing elit</li>
+                    <li>Dolorem saepe non eligendi possimus</li>
+                    <li>Voluptate odit corrupti vitae</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>

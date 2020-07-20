@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blocks/head :: head"></head>
+<body>
+<div th:if="${isAuth}">
+    <header th:insert="blocks/header :: header-logout"></header>
+</div>
+<div th:unless="${isAuth}">
+    <header th:insert="blocks/header :: header-login"></header>
+</div>
+
+<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/img_error.png');">
+    <div class="container">
+        <div class="row same-height justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="post-entry text-center">
+                    <h1 class="">404</h1>
+                    <p class="lead mb-4 text-white">Page not found</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
